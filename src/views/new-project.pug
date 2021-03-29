@@ -1,0 +1,11 @@
+extends layout/layout
+include mixins/new-project
+
+block content 
+    .contenido-principal 
+        h1 #{pageName}        
+        if errors 
+            each error in errors
+                .alerta.error #{error.text}
+        
+        +newProject(project)

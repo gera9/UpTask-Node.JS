@@ -1,0 +1,15 @@
+extends layout/layout 
+
+block content 
+    .contenido-principal 
+        h1 #{pageName} -  #{project.name}
+
+        // TO DO - Form Here
+
+
+        // TO DO - Pending List
+
+        // Actions
+        .contenedor-acciones 
+            a(href=`/projects/edit/${project.id}` class="boton") Edit Project 
+            button#delete-project(type="button" class="boton eliminar") Delete Project
