@@ -7,8 +7,9 @@ const helpers = require('./helpers/helpers');
 // Create DB connection
 const db = require('./config/db');
 
-// Import DB model
+// Import DB models
 require('./models/Projects');
+require('./models/Tasks');
 
 db.sync()
     .then(() => console.log('Ok!'))

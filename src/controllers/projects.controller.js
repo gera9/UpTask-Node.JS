@@ -1,4 +1,6 @@
+// Import Models
 const Projects = require('../models/Projects');
+const Tasks = require('../models/Tasks');
 
 exports.homeProjects = async (req, res) => {
     const projects = await Projects.findAll();
@@ -54,13 +56,24 @@ exports.projectByUrl = async (req, res, next) => {
     });
 
     const [projects, project] = await Promise.all([projectsPromise, projectPromise]);
+    
+    // Get Task's Project
+    const tasks = await Tasks.findAll({
+        where: {
+            projectId: project.id
+        },
+        include: [
+            { model: Projects }
+        ]
+    });
 
     if(!project) next();
 
     res.render('tasks', {
         pageName: 'Tasks',
         project,
-        projects
+        projects,
+        tasks
     });
 };
 
@@ -108,6 +121,18 @@ exports.editProject = async (req, res) => {
         );
         res.redirect('/');
     }
+};
+
+exports.deleteProject = async (req, res, next) => {
+    const { projectUrl } = req.query;
+    const result = await Projects.destroy({ where: { url: projectUrl } });
+    
+    if(!result){
+        res.status(404).send('Something went wrong!')
+        return next();
+    }
+
+    res.status(200).send('Your project has been deleted.');
 };
 
 exports.notFound = (req, res) => {

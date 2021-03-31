@@ -4,12 +4,34 @@ block content
     .contenido-principal 
         h1 #{pageName} -  #{project.name}
 
-        // TO DO - Form Here
+        form.agregar-tarea(action=`/projects/${project.url}` method="POST")
+            .campo
+                label(for="task") Task:
+                input.nombre-tarea(type="text" name="task" id="task" placeholder="Task name")
+            .campo.enviar
+                input.boton.nueva-tarea(type="submit", value="Add task")
+        
+        .listado-pendientes
+            ul
+              if tasks.length
+                each task in tasks
+                    li.tarea(data-task= task.id)
+                        p= task.task
+                        .acciones 
+                            if task.state 
+                                i.far.fa-check-circle.completo
+                            else
+                                i.far.fa-check-circle 
+                            i.fas.fa-trash
+              else 
+                p No tasks here.
 
+        .avance
+            h2 Project Progress
+            #progress-bar.barra-avance
+                #percentage.porcentaje
 
-        // TO DO - Pending List
-
-        // Actions
+        //pre= vardump(tasks)
         .contenedor-acciones 
             a(href=`/projects/edit/${project.id}` class="boton") Edit Project 
-            button#delete-project(type="button" class="boton eliminar") Delete Project
+            button#delete-project(data-project-url=project.url type="button" class="boton eliminar") Delete Project

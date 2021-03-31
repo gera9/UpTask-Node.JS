@@ -13,10 +13,10 @@ const Projects = db.define('projects', {
     },
 
     name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING(100)
     },
 
-    url: Sequelize.STRING
+    url: Sequelize.STRING(100)
 
 }, {
     hooks: {

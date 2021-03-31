@@ -4,8 +4,9 @@ const router = express.Router();
 // Import express-validator
 const { body } = require('express-validator');
 
-// Import controller
+// Import controllers
 const projectsController = require('../controllers/projects.controller');
+const tasksController = require('../controllers/tasks.controller');
 
 module.exports = function(){
     // Home
@@ -28,8 +29,21 @@ module.exports = function(){
         projectsController.editProject
     );
 
+    // Delete Project
+    router.delete('/projects/:url', projectsController.deleteProject);
+
+    // Add task
+    router.post('/projects/:url', tasksController.addTask);
+
+    // Update Task
+    router.patch('/tasks/:id', tasksController.updateStateTask);
+
+    // Delete Task
+    router.delete('/tasks/:id', tasksController.deleteTask);
+
     // 404 Not Found
     router.get('*', projectsController.notFound);
     
     return router;
+
 };
