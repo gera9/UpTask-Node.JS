@@ -6,6 +6,7 @@ const helpers = require('./helpers/helpers');
 const flash = require('connect-flash');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const passport = require('./config/passport');
 
 // Create DB connection
 const db = require('./config/db');
@@ -37,19 +38,25 @@ app.set('views', path.join(__dirname, 'views'));
 // Flash Messages
 app.use(flash());
 
+// Cookie Parser
 app.use(cookieParser());
 
-// Sessions
+// Session
 app.use(session({
     secret: 'supersecret',
     resave: false,
     saveUninitialized: false
 }));
 
+// Passport
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Var_dump
 app.use((req, res, next) => {
     res.locals.vardump = helpers.vardump;
     res.locals.messages = req.flash();
+    res.locals.user = {...req.user || null};
     next();
 });
 

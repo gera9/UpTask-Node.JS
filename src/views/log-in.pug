@@ -4,16 +4,12 @@ html(lang="en")
         include partials/header
     body.login
         .contenedor-formulario 
-            h1 Create your UpTask's Account
+            h1 Log In
 
-            if locals.messages 
-                .alertas
-                    each category in Object.keys(locals.messages)
-                        each error in messages[category]
-                            .alerta(class=`${category}`)
-                                p= error
-    
-            form#form.caja.caja-login(method="POST" action="/create-account")
+            if error 
+                p.alerta.error= error
+
+            form#form.caja.caja-login(method="POST" action="/log-in")
                 .campo
                     label(for="email") E-mail:
                     input(type="email", name="email" id="email" placeholder="someone@something.com" value= email required)
@@ -21,6 +17,6 @@ html(lang="en")
                     label(for="password") Password:
                     input(type="password", name="password" id="password" value= password required)
                 .campo.enviar
-                    input.boton(type="submit" value="Create Account")
+                    input.boton(type="submit" value="Log In")
                 .campo 
-                    a(href="/log-in") Log In
+                    a(href="/create-account") Create Account

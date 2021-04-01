@@ -6,6 +6,14 @@ exports.formCreateAccount = (req, res) => {
     });
 };
 
+exports.formLogIn = (req, res) => {
+    const { error } = res.locals.messages;
+    res.render('log-in', {
+        pageName: 'Log In',
+        error: error
+    });
+};
+
 exports.createAccount = async (req, res) => {
     // Read data
     const { email, password } = req.body;
