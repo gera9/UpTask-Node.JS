@@ -8,8 +8,14 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const passport = require('./config/passport');
 
+// Extract data from variables.env
+require('dotenv').config({
+    path: 'variables.env'
+});
+
 // Create DB connection
 const db = require('./config/db');
+const { env } = require('process');
 
 // Import DB models
 require('./models/Projects');
@@ -68,4 +74,11 @@ app.use((req, res, next) => {
 
 app.use('/', routes());
 
-app.listen(3000);
+// Server and Port
+
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 3000;
+app.listen(port, host, (error) => {
+    if(error) return console.error(error);
+    console.log('Server is up and listening on port ', port);
+});
