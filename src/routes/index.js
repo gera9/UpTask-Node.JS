@@ -90,6 +90,12 @@ module.exports = function(){
         authController.logOut
     );
     
+    // Restore Password
+    router.get('/restore-pass', usersController.formRestorePass);
+    router.post('/restore-pass', authController.sendToken);
+    router.get('/restore-pass/:token', authController.restorePass);
+    router.post('/restore-pass/:token', authController.updatePass);
+
     // 404 Not Found
     router.get('*', projectsController.notFound);
     

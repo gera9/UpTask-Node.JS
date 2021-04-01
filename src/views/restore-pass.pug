@@ -1,10 +1,11 @@
 doctype html
 html(lang="en")
     head
-        include partials/header
-    body.login
-        .contenedor-formulario 
-            h1 Log In
+       include partials/header
+    body.login 
+        .contenedor-formulario
+            h1= pageName
+            p Add your E-mail to restore your password
 
             if locals.messages 
                 .alertas
@@ -13,16 +14,11 @@ html(lang="en")
                             .alerta(class=`${category}`)
                                 p= error
 
-            form#form.caja.caja-login(method="POST" action="/log-in")
+            form.caja-login(method="POST" action="/restore-pass")
                 .campo
                     label(for="email") E-mail:
                     input(type="email", name="email" id="email" placeholder="someone@something.com" value= email required)
-                .campo
-                    label(for="password") Password:
-                    input(type="password", name="password" id="password" value= password placeholder="Password" required)
                 .campo.enviar
-                    input.boton(type="submit" value="Log In")
+                    input.boton(type="submit" value="Restore Password")
                 .campo.acciones
-                    a(href="/create-account") Create Account
-
-                    a(href="/restore-pass") Did your forget your password?
+                    a(href="/log-in") I already remembered it (Log In)

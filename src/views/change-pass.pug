@@ -1,0 +1,15 @@
+doctype html
+html(lang="en")
+    head
+       include partials/header
+    body.login 
+        .contenedor-formulario
+            h1= pageName
+            p Type your new password
+
+            form.caja-login(method="POST")
+                .campo
+                    label(for="password") Password:
+                    input(type="password", name="password" id="password" placeholder="New Password" value= email required)
+                .campo.enviar
+                    input.boton(type="submit" value="Restore Password")

@@ -1,0 +1,20 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./email.css     
+    body
+        h2 Restore Password 
+        p
+            b Hello!
+        p You have requested a password change
+        hr
+        p  Click below and remember the link will be destroyed soon.
+        a(href=`${resetUrl}` class="button") Click Me!
+        p If you can't access, click 
+            a(href=resetUrl) here.
+        hr
+        p Ignore this message if you didn't request it.

@@ -180,7 +180,7 @@ body.index {
     overflow: scroll;
 }
 .contenido-principal h1,
-.contenido-principal h2 {
+.contenido-principal h2, .h1 {
     text-align: center;
 }
 .contenido-principal h1 {
@@ -258,6 +258,16 @@ body.index {
     border: 1px solid green;
 }
 .correcto p {
+    color: green;
+}
+
+.success {
+    color: green;
+    background-color: rgb(201, 245, 201);
+    border: 1px solid green;
+}
+
+.success p {
     color: green;
 }
 

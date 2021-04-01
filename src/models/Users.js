@@ -33,7 +33,9 @@ const Users = db.define('users', {
                 msg: 'Password empty.'
             }
         }
-    }
+    },
+    token: Sequelize.STRING,
+    expiration: Sequelize.DATE
 }, {
     hooks: {
         beforeCreate(user) {

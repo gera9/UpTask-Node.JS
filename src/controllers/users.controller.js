@@ -37,3 +37,9 @@ exports.createAccount = async (req, res) => {
         });
     }
 };
+
+exports.formRestorePass = async (req, res) => {
+    res.render('restore-pass', {
+        pageName: 'Restore Password'
+    });
+};
