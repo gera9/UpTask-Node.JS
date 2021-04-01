@@ -7,14 +7,14 @@ html(lang="en")
         style 
             include ./email.css     
     body
-        h2 Restore Password 
+        h2 Confirm Account
         p
             b Hello!
-        p You have requested a password change.
+        p You have to confirm your account.
         hr
         p  Click below and remember the link will be destroyed soon.
-        a(href=`${resetUrl}` class="button") Click Me!
+        a(href=`${confirmURL}` class="button") Click Me!
         p If you can't access, click 
-            a(href=resetUrl) here.
+            a(href=confirmURL) here.
         hr
         p Ignore this message if you didn't request it.

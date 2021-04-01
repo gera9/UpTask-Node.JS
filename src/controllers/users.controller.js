@@ -1,4 +1,5 @@
 const Users = require('../models/Users');
+const sendEmail = require('../handlers/email');
 
 exports.formCreateAccount = (req, res) => {
     res.render('create-account', {
@@ -25,6 +26,23 @@ exports.createAccount = async (req, res) => {
             password: password
         });
 
+        // Create a URL to confirm account
+        const confirmURL = `http://${req.headers.host}/confirm/${email}`;
+        
+        // Create a user object
+        const user = {
+            email
+        }
+        // Send Email
+        await sendEmail.send({
+            user: user,
+            subject: 'Confirm Account',
+            confirmURL: confirmURL,
+            file: 'confirm-account'
+        });
+
+        // Redirect
+        req.flash('success', 'Check your email and then confirm your account');
         res.redirect('/log-in');
 
     } catch (error) {
@@ -42,4 +60,22 @@ exports.formRestorePass = async (req, res) => {
     res.render('restore-pass', {
         pageName: 'Restore Password'
     });
+};
+
+exports.confirmAccount = async (req, res) => {
+    const user = await Users.findOne({
+        where: {
+            email: req.params.email
+        }
+    });
+
+    if(!user){
+        req.flash('error', 'Not valid');
+        res.redirect('/create-account');
+    }
+
+    user.active = 1;
+    await user.save();
+    req.flash('success', 'Account Activated');
+    res.redirect('/log-in');
 };
